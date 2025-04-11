@@ -1,18 +1,11 @@
 <?php
 
+use App\Http\Controllers\TransactionDetailController;
+use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\ItemController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
 
 Route::get('/', function () {
     return view('welcome');
@@ -21,6 +14,11 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+route::resource('/category', CategoryController::class);
+Route::get('/item', [ItemController::class, 'index'])->name('item');
+Route::resource('/transactions', TransactionController::class);
+Route::resource('/TransactionDetail', TransactionDetailController::class);
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
